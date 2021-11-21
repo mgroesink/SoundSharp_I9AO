@@ -140,7 +140,6 @@ namespace SoundSharp_I9AO.Models
                 entity.ToTable("OWNER");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Firstname)
