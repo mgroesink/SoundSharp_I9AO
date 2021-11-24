@@ -10,8 +10,8 @@ using SoundSharp_I9AO.Models;
 namespace SoundSharp_I9AO.Migrations
 {
     [DbContext(typeof(SoundSharpContext))]
-    [Migration("20211121111437_Initial migration")]
-    partial class Initialmigration
+    [Migration("20211124155241_Birthdate added")]
+    partial class Birthdateadded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -136,6 +136,9 @@ namespace SoundSharp_I9AO.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("Birthdate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Firstname")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
@@ -155,6 +158,9 @@ namespace SoundSharp_I9AO.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("lastname");
+
+                    b.Property<string>("LicensePlate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Middlename")
                         .HasMaxLength(25)
@@ -185,7 +191,7 @@ namespace SoundSharp_I9AO.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("numeric(28,0)")
                         .HasColumnName("PLAYLIST_ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
                     b.Property<int?>("Mp3playerSerialid")
                         .HasColumnType("int")
@@ -201,7 +207,7 @@ namespace SoundSharp_I9AO.Migrations
                     b.ToTable("PLAYLIST");
                 });
 
-            modelBuilder.Entity("SoundSharp_I9AO.Models.Relation2", b =>
+            modelBuilder.Entity("SoundSharp_I9AO.Models.PlaylistTracks", b =>
                 {
                     b.Property<int>("TrackId")
                         .HasColumnType("int")
@@ -212,11 +218,11 @@ namespace SoundSharp_I9AO.Migrations
                         .HasColumnName("PLAYLIST_PLAYLIST_ID");
 
                     b.HasKey("TrackId", "PlaylistPlaylistId")
-                        .HasName("Relation_2_PK");
+                        .HasName("PlaylistTracks_PK");
 
                     b.HasIndex("PlaylistPlaylistId");
 
-                    b.ToTable("Relation_2");
+                    b.ToTable("PlaylistTracks");
                 });
 
             modelBuilder.Entity("SoundSharp_I9AO.Models.Track", b =>
@@ -313,18 +319,18 @@ namespace SoundSharp_I9AO.Migrations
                     b.Navigation("Mp3playerSerial");
                 });
 
-            modelBuilder.Entity("SoundSharp_I9AO.Models.Relation2", b =>
+            modelBuilder.Entity("SoundSharp_I9AO.Models.PlaylistTracks", b =>
                 {
                     b.HasOne("SoundSharp_I9AO.Models.Playlist", "PlaylistPlaylist")
                         .WithMany("Relation2s")
                         .HasForeignKey("PlaylistPlaylistId")
-                        .HasConstraintName("Relation_2_PLAYLIST_FK")
+                        .HasConstraintName("PlaylistTracks_PLAYLIST_FK")
                         .IsRequired();
 
                     b.HasOne("SoundSharp_I9AO.Models.Track", "Track")
                         .WithMany("Relation2s")
                         .HasForeignKey("TrackId")
-                        .HasConstraintName("Relation_2_TRACK_FK")
+                        .HasConstraintName("PlaylistTracks_TRACK_FK")
                         .IsRequired();
 
                     b.Navigation("PlaylistPlaylist");

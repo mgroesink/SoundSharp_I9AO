@@ -54,7 +54,7 @@ namespace SoundSharp_I9AO.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Firstname,Middlename,Lastname,Postalcode,Street,Housenumber,HousenumberAdd")] Owner owner)
+        public async Task<IActionResult> Create([Bind("Firstname,Middlename,Lastname,Postalcode,Street,Housenumber,HousenumberAdd,LicensePlate,Birthdate")] Owner owner)
         {
             if (ModelState.IsValid)
             {

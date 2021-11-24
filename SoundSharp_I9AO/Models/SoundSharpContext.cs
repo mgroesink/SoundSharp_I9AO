@@ -23,7 +23,7 @@ namespace SoundSharp_I9AO.Models
         public virtual DbSet<Mp3player> Mp3players { get; set; }
         public virtual DbSet<Owner> Owners { get; set; }
         public virtual DbSet<Playlist> Playlists { get; set; }
-        public virtual DbSet<Relation2> Relation2s { get; set; }
+        public virtual DbSet<PlaylistTracks> Relation2s { get; set; }
         public virtual DbSet<Track> Tracks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -190,12 +190,12 @@ namespace SoundSharp_I9AO.Models
                     .HasConstraintName("PLAYLIST_MP3PLAYER_FK");
             });
 
-            modelBuilder.Entity<Relation2>(entity =>
+            modelBuilder.Entity<PlaylistTracks>(entity =>
             {
                 entity.HasKey(e => new { e.TrackId, e.PlaylistPlaylistId })
-                    .HasName("Relation_2_PK");
+                    .HasName("PlaylistTracks_PK");
 
-                entity.ToTable("Relation_2");
+                entity.ToTable("PlaylistTracks");
 
                 entity.Property(e => e.TrackId).HasColumnName("TRACK_id");
 
@@ -207,13 +207,13 @@ namespace SoundSharp_I9AO.Models
                     .WithMany(p => p.Relation2s)
                     .HasForeignKey(d => d.PlaylistPlaylistId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Relation_2_PLAYLIST_FK");
+                    .HasConstraintName("PlaylistTracks_PLAYLIST_FK");
 
                 entity.HasOne(d => d.Track)
                     .WithMany(p => p.Relation2s)
                     .HasForeignKey(d => d.TrackId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Relation_2_TRACK_FK");
+                    .HasConstraintName("PlaylistTracks_TRACK_FK");
             });
 
             modelBuilder.Entity<Track>(entity =>

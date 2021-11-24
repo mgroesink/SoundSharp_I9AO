@@ -128,8 +128,7 @@ namespace SoundSharp_I9AO.Migrations
                 name: "PLAYLIST",
                 columns: table => new
                 {
-                    PLAYLIST_ID = table.Column<decimal>(type: "numeric(28,0)", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PLAYLIST_ID = table.Column<decimal>(type: "numeric(28,0)", nullable: false),
                     Position = table.Column<short>(type: "smallint", nullable: false),
                     MP3PLAYER_serialid = table.Column<int>(type: "int", nullable: true)
                 },
@@ -145,7 +144,7 @@ namespace SoundSharp_I9AO.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Relation_2",
+                name: "PlaylistTracks",
                 columns: table => new
                 {
                     TRACK_id = table.Column<int>(type: "int", nullable: false),
@@ -153,15 +152,15 @@ namespace SoundSharp_I9AO.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("Relation_2_PK", x => new { x.TRACK_id, x.PLAYLIST_PLAYLIST_ID });
+                    table.PrimaryKey("PlaylistTracks_PK", x => new { x.TRACK_id, x.PLAYLIST_PLAYLIST_ID });
                     table.ForeignKey(
-                        name: "Relation_2_PLAYLIST_FK",
+                        name: "PlaylistTracks_PLAYLIST_FK",
                         column: x => x.PLAYLIST_PLAYLIST_ID,
                         principalTable: "PLAYLIST",
                         principalColumn: "PLAYLIST_ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "Relation_2_TRACK_FK",
+                        name: "PlaylistTracks_TRACK_FK",
                         column: x => x.TRACK_id,
                         principalTable: "TRACK",
                         principalColumn: "id",
@@ -179,8 +178,8 @@ namespace SoundSharp_I9AO.Migrations
                 column: "MP3PLAYER_serialid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Relation_2_PLAYLIST_PLAYLIST_ID",
-                table: "Relation_2",
+                name: "IX_PlaylistTracks_PLAYLIST_PLAYLIST_ID",
+                table: "PlaylistTracks",
                 column: "PLAYLIST_PLAYLIST_ID");
         }
 
@@ -193,7 +192,7 @@ namespace SoundSharp_I9AO.Migrations
                 name: "MEMORECORDER");
 
             migrationBuilder.DropTable(
-                name: "Relation_2");
+                name: "PlaylistTracks");
 
             migrationBuilder.DropTable(
                 name: "PLAYLIST");

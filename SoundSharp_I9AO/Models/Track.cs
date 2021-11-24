@@ -9,7 +9,7 @@ namespace SoundSharp_I9AO.Models
     {
         public Track()
         {
-            Relation2s = new HashSet<Relation2>();
+            Relation2s = new HashSet<PlaylistTracks>();
         }
 
         public int Id { get; set; }
@@ -19,6 +19,6 @@ namespace SoundSharp_I9AO.Models
         public string Style { get; set; }
         public TimeSpan? Length { get; set; }
 
-        public virtual ICollection<Relation2> Relation2s { get; set; }
+        public virtual ICollection<PlaylistTracks> Relation2s { get; set; }
     }
 }
